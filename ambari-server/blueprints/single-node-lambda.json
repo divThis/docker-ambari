@@ -1,0 +1,189 @@
+{
+  "configurations": [
+    {
+      "nagios-env": {
+        "nagios_contact": "admin@localhost"
+      }
+    },
+    {
+      "yarn-env": {
+        "properties": {
+          "resourcemanager_heapsize": "250",
+          "nodemanager_heapsize": "250",
+          "yarn_heapsize": "250",
+          "apptimelineserver_heapsize": "250"
+        }
+      }
+    },
+    {
+      "mapred-site": {
+        "properties": {
+          "mapred.job.reduce.memory.mb": "250",
+          "mapred.job.map.memory.mb": "250",
+          "mapreduce.reduce.java.opts": "-Xmx200m",
+          "mapreduce.map.java.opts": "-Xmx200m",
+          "yarn.app.mapreduce.am.command-opts": "-Xmx200m",
+          "mapreduce.map.memory.mb": "250",
+          "mapreduce.reduce.memory.mb": "250",
+          "mapred.child.java.opts": "-Xmx200m",
+          "yarn.app.mapreduce.am.resource.mb": "250"
+        }
+      }
+    },
+    {
+      "ams-hbase-env": {
+        "properties": {
+          "max_open_files_limit": "32768",
+          "hbase_master_maxperm_size": "128m",
+          "regionserver_xmn_size": "256m",
+          "hbase_master_heapsize": "512m",
+          "hbase_regionserver_heapsize": "512m",
+          "hbase_regionserver_xmn_max": "256m",
+          "hbase_regionserver_xmn_ratio": "0.2",
+          "hbase_master_xmn_size": "256m"
+        }
+      }
+    },
+    {
+      "ams-hbase-site": {
+        "properties": {
+          "hbase.hregion.memstore.flush.size": "134217728",
+          "hbase.hstore.flusher.count": "2",
+          "hbase.regionserver.global.memstore.upperLimit": "0.5",
+          "phoenix.query.maxGlobalMemoryPercentage": "15",
+          "hbase.regionserver.global.memstore.lowerLimit": "0.4",
+          "phoenix.groupby.maxCacheSize": "307200000",
+          "hfile.block.cache.size": "0.3",
+          "hbase.hregion.memstore.block.multiplier": "4",
+          "hbase.regionserver.thread.compaction.large": "2"
+        }
+      }
+    },
+    {
+      "kafka-broker": {
+        "properties": {
+          "offsets.load.buffer.size": "5242880",
+          "offsets.topic.num.partitions": "50",
+          "message.max.bytes": "1000000",
+          "log.index.size.max.bytes": "10485760",
+          "log.retention.bytes": "-1",
+          "log.segment.bytes": "1073741824",
+          "leader.imbalance.per.broker.percentage": "10",
+          "num.network.threads": "3",
+          "kafka.timeline.metrics.maxRowCacheSize": "10000",
+          "socket.request.max.bytes": "104857600",
+          "offsets.topic.segment.bytes": "104857600",
+          "socket.send.buffer.bytes": "102400",
+          "num.replica.fetchers": "1",
+          "default.replication.factor": "1",
+          "replica.socket.receive.buffer.bytes": "65536",
+          "log.index.interval.bytes": "4096"
+        }
+      }
+    },
+    {
+      "hbase-env": {
+        "properties_attributes": { },
+        "properties": {
+          "hbase_master_heapsize": "1024m",
+          "hbase_regionserver_heapsize": "1024m",
+          "hbase_regionserver_xmn_max": "512",
+          "hbase_regionserver_xmn_ratio": "0.2"
+        }
+      }
+    },
+    {
+      "mapred-env": {
+        "properties": {
+          "jobhistory_heapsize": "250"
+        }
+      }
+    },
+    {
+      "yarn-site": {
+        "properties_attributes": { },
+        "properties": {
+          "yarn.nodemanager.resource.memory-mb": "2250",
+          "yarn.scheduler.minimum-allocation-mb": "250",
+          "yarn.scheduler.maximum-allocation-mb": "2250"
+        }
+      }
+    },
+    {
+      "hadoop-env": {
+        "properties": {
+          "namenode_opt_permsize": "128m",
+          "hadoop_heapsize": "250",
+          "namenode_opt_maxnewsize": "100m",
+          "namenode_heapsize": "250m",
+          "namenode_opt_newsize": "50m",
+          "dtnode_heapsize": "250m",
+          "namenode_opt_maxpermsize": "256m"
+        }
+      }
+    },
+    {
+      "hbase-site": {
+        "properties_attributes": {
+          "final": {
+            "hbase_master_heapsize": "true",
+            "hbase_regionserver_heapsize": "true"
+          }
+        },
+        "properties": {
+          "hbase_regionserver_heapsize": "1024m",
+          "hbase.hregion.memstore.block.multiplier": "2",
+          "hbase_master_heapsize": "1024m"
+        }
+      }
+    },
+    {
+      "ams-env": {
+        "properties": {
+          "metrics_collector_heapsize": "512m"
+        }
+      }
+    }
+  ],
+  "host_groups": [
+    {
+      "name": "master",
+      "components": [
+        {"name": "KAFKA_BROKER"},
+        {"name": "HISTORYSERVER"},
+        {"name": "HBASE_REGIONSERVER"},
+        {"name": "HBASE_CLIENT"},
+        {"name": "NAMENODE"},
+        {"name": "SUPERVISOR"},
+        {"name": "METRICS_MONITOR"},
+        {"name": "AMBARI_SERVER"},
+        {"name": "APP_TIMELINE_SERVER"},
+        {"name": "NODEMANAGER"},
+        {"name": "HDFS_CLIENT"},
+        {"name": "METRICS_COLLECTOR"},
+        {"name": "DATANODE"},
+        {"name": "RESOURCEMANAGER"},
+        {"name": "WEBHCAT_SERVER"},
+        {"name": "ZOOKEEPER_CLIENT"},
+        {"name": "ZOOKEEPER_SERVER"},
+        {"name": "HBASE_MASTER"},
+        {"name": "STORM_UI_SERVER"},
+        {"name": "SECONDARY_NAMENODE"},
+        {"name": "YARN_CLIENT"},
+        {"name": "MAPREDUCE2_CLIENT"},
+        {"name": "NIMBUS"},
+        {"name": "DRPC_SERVER"},
+        {"name" : "MYSQL_SERVER"},
+        {"name": "HIVE_METASTORE"},
+        {"name": "HIVE_CLIENT"},
+        {"name": "HIVE_SERVER"}
+      ],
+      "cardinality": "1"
+    }
+  ],
+  "Blueprints": {
+    "blueprint_name": "single-node-lambda",
+    "stack_name": "HDP",
+    "stack_version": "2.3"
+  }
+}

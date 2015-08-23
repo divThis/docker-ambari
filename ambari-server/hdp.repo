@@ -1,6 +1,6 @@
 [HDP-2.2]
 name=HDP
-baseurl=http://public-repo-1.hortonworks.com/HDP/centos6/2.x/GA/2.2.0.0
+baseurl=http://s3.amazonaws.com/dev.hortonworks.com/HDP/centos6/2.x/BUILDS/2.3.2.0-2690
 path=/
 enabled=1
 gpgcheck=0

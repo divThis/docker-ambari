@@ -34,10 +34,11 @@ ADD hdp.repo /etc/yum.repos.d/
 ADD download-warmup-deps.sh /tmp/
 RUN chmod +x  /tmp/download-warmup-deps.sh
 RUN /tmp/download-warmup-deps.sh
-RUN yum install -y ambari-log4j hadoop hadoop-libhdfs hadoop-lzo hadoop-lzo-native hadoop-mapreduce hadoop-mapreduce-historyserver hadoop-yarn hadoop-yarn-nodemanager hadoop-yarn-proxyserver hadoop-yarn-resourcemanager lzo net-snmp net-snmp-utils snappy snappy-devel unzip zookeeper hbase
+RUN yum install -y ambari-log4j hadoop hadoop-libhdfs hadoop-lzo hadoop-lzo-native hadoop-mapreduce hadoop-mapreduce-historyserver hadoop-yarn hadoop-yarn-nodemanager hadoop-yarn-proxyserver hadoop-yarn-resourcemanager lzo net-snmp net-snmp-utils snappy snappy-devel unzip zookeeper hbase slider storm hive hive_2_3_*-hcatalog hive_2_3_*-webhcat mysql-connector-java mysql-server datafu ranger phoenix kafka pig ambari-metrics-* rpcbind
 
 # add ambari shell to the image so new users don't need the 1GB java image
 RUN curl -o /tmp/ambari-shell.jar https://s3-eu-west-1.amazonaws.com/maven.sequenceiq.com/releases/com/sequenceiq/ambari-shell/0.1.25/ambari-shell-0.1.25.jar
+ADD blueprints /tmp/blueprints
 ADD install-cluster.sh /tmp/
 ADD wait-for-host-number.sh /tmp/
 ADD ambari-shell.sh /tmp/
@@ -57,6 +58,7 @@ RUN sed -i "/\[agent\]/ a public_hostname_script=\/etc\/ambari-agent\/conf\/publ
 RUN sed -i "/\[agent\]/ a hostname_script=\/etc\/ambari-agent\/conf\/internal-hostname.sh" /etc/ambari-agent/conf/ambari-agent.ini
 
 RUN mkdir /var/log/hadoop-metrics && chmod 777 /var/log/hadoop-metrics
+RUN mkdir /var/log/httpd
 ADD hadoop-metrics2.properties.j2 /var/lib/ambari-server/resources/stacks/HDP/2.0.6/hooks/before-START/templates/hadoop-metrics2.properties.j2
 
 # Error: database disk image is malformed
@@ -67,6 +69,6 @@ VOLUME /var/log
 # increase agent timeout
 RUN sed -i "s/agent.task.timeout=900/agent.task.timeout=2000/" /etc/ambari-server/conf/ambari.properties
 
-EXPOSE 8080
+EXPOSE 2181 3773 3772 6627 8000 8020 8032 8080 8088 8744 9933 9999 10000 16010 19888 50060 50070 50075 50470 50475
 ENTRYPOINT ["/usr/local/serf/bin/start-serf-agent.sh"]
 CMD ["--log-level", "debug"]
